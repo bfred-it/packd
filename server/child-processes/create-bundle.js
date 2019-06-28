@@ -158,6 +158,7 @@ async function bundleWithRollup (cwd, pkg, moduleEntry, name) {
 
 	const result = await bundle.generate({
 		format: 'iife',
+		extend: name === 'window',
 		name
 	});
 
