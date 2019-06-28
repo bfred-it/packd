@@ -7,8 +7,8 @@ const request = require('request');
 const browserify = require('browserify');
 const rollup = require('rollup');
 const resolve = require('rollup-plugin-node-resolve');
-const Terser = require('terser');
-const isModule = require('is-module');
+const commonjs = require('rollup-plugin-commonjs');
+const cleanup = require('rollup-plugin-cleanup');
 const makeLegalIdentifier = require('../utils/makeLegalIdentifier');
 
 const { npmInstallEnvVars, root, tmpdir } = require('../../config.js');
@@ -21,7 +21,7 @@ process.on('message', message => {
 
 process.send('ready');
 
-async function createBundle({ hash, pkg, version, deep, query }) {
+async function createBundle ({ hash, pkg, version, deep, query }) {
 	const dir = `${tmpdir}/${hash}`;
 	const cwd = `${dir}/package`;
 
@@ -35,7 +35,7 @@ async function createBundle({ hash, pkg, version, deep, query }) {
 
 		process.send({
 			type: 'result',
-			code: result.error ? code : result.code
+			code: `/* http://github.com/bfred-it/${pkg.name} @ v${version} */\n\n` + code
 		});
 	} catch (err) {
 		process.send({
@@ -133,15 +133,7 @@ function bundle(cwd, deep, query) {
 				)
 		  );
 
-	const code = sander.readFileSync(entry, { encoding: 'utf-8' });
-
-	if (isModule(code)) {
-		info(`[${pkg.name}] ES2015 module found, using Rollup`);
-		return bundleWithRollup(cwd, pkg, entry, moduleName);
-	} else {
-		info(`[${pkg.name}] No ES2015 module found, using Browserify`);
-		return bundleWithBrowserify(pkg, entry, moduleName);
-	}
+	return bundleWithRollup(cwd, pkg, entry, moduleName);
 }
 
 function findEntry(file) {
@@ -158,12 +150,14 @@ async function bundleWithRollup(cwd, pkg, moduleEntry, name) {
 	const bundle = await rollup.rollup({
 		input: path.resolve(cwd, moduleEntry),
 		plugins: [
-			resolve({ module: true, jsnext: true, main: false, modulesOnly: true })
+			resolve({ browser: true }),
+			commonjs(),
+			cleanup(),
 		]
 	});
 
 	const result = await bundle.generate({
-		format: 'umd',
+		format: 'iife',
 		name
 	});
 
