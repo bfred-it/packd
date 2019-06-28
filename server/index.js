@@ -126,12 +126,7 @@ app.use(
 );
 
 app.get('/', (req, res) => {
-	res.status(200);
-	const index = fs
-		.readFileSync(`${root}/server/templates/index.html`, 'utf-8')
-		.replace('__VERSION__', pkgInfo.version);
-
-	res.end(index);
+	res.status(301).redirect('https://github.com/bfred-it');
 });
 
 app.use(servePackage);
