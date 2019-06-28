@@ -1,6 +1,6 @@
 const https = require('https');
 
-module.exports = function get(url) {
+module.exports = function get (url) {
 	return new Promise((fulfil, reject) => {
 		https.get(url, response => {
 			let body = '';

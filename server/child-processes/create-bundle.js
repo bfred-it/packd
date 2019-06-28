@@ -48,7 +48,7 @@ async function createBundle ({ hash, pkg, version, deep, query }) {
 	sander.rimraf(dir);
 }
 
-function fetchAndExtract(pkg, version, dir) {
+function fetchAndExtract (pkg, version, dir) {
 	const tarUrl = pkg.versions[version].dist.tarball;
 
 	info(`[${pkg.name}] fetching ${tarUrl}`);
@@ -86,7 +86,7 @@ function fetchAndExtract(pkg, version, dir) {
 	});
 }
 
-function sanitizePkg(cwd) {
+function sanitizePkg (cwd) {
 	const pkg = require(`${cwd}/package.json`);
 	pkg.scripts = {};
 	return sander.writeFile(
@@ -95,7 +95,7 @@ function sanitizePkg(cwd) {
 	);
 }
 
-function installDependencies(cwd) {
+function installDependencies (cwd) {
 	const pkg = require(`${cwd}/package.json`);
 
 	const envVariables = npmInstallEnvVars.join(' ');
@@ -120,23 +120,23 @@ function installDependencies(cwd) {
 	});
 }
 
-function bundle(cwd, deep, query) {
+function bundle (cwd, deep, query) {
 	const pkg = require(`${cwd}/package.json`);
 	const moduleName = query.name || makeLegalIdentifier(pkg.name);
 
 	const entry = deep
 		? path.resolve(cwd, deep)
 		: findEntry(
-				path.resolve(
-					cwd,
-					pkg.module || pkg['jsnext:main'] || pkg.main || 'index.js'
-				)
+			path.resolve(
+				cwd,
+				pkg.module || pkg['jsnext:main'] || pkg.main || 'index.js'
+			)
 		  );
 
 	return bundleWithRollup(cwd, pkg, entry, moduleName);
 }
 
-function findEntry(file) {
+function findEntry (file) {
 	try {
 		const stats = sander.statSync(file);
 		if (stats.isDirectory()) return `${file}/index.js`;
@@ -146,7 +146,7 @@ function findEntry(file) {
 	}
 }
 
-async function bundleWithRollup(cwd, pkg, moduleEntry, name) {
+async function bundleWithRollup (cwd, pkg, moduleEntry, name) {
 	const bundle = await rollup.rollup({
 		input: path.resolve(cwd, moduleEntry),
 		plugins: [
@@ -185,7 +185,7 @@ async function bundleWithRollup(cwd, pkg, moduleEntry, name) {
 	return result.output[0].code;
 }
 
-function bundleWithBrowserify(pkg, main, moduleName) {
+function bundleWithBrowserify (pkg, main, moduleName) {
 	const b = browserify(main, {
 		standalone: moduleName
 	});
@@ -202,7 +202,7 @@ function bundleWithBrowserify(pkg, main, moduleName) {
 	});
 }
 
-function exec(cmd, cwd, pkg) {
+function exec (cmd, cwd, pkg) {
 	return new Promise((fulfil, reject) => {
 		child_process.exec(cmd, { cwd }, (err, stdout, stderr) => {
 			if (err) {
@@ -222,7 +222,7 @@ function exec(cmd, cwd, pkg) {
 	});
 }
 
-function info(message) {
+function info (message) {
 	process.send({
 		type: 'info',
 		message

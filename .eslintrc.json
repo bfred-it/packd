@@ -21,7 +21,8 @@
         "prefer-arrow-callback": 2,
         "prefer-const": [ 2, { "destructuring": "all" } ],
         "arrow-spacing": 2,
-        "no-inner-declarations": 0
+        "no-inner-declarations": 0,
+        "no-console": 0
     },
     "env": {
         "es6": true,

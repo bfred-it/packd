@@ -4,7 +4,6 @@ const express = require('express');
 const compression = require('compression');
 const prettyBytes = require('pretty-bytes');
 const favicon = require('serve-favicon');
-const pkgInfo = require('../package.json');
 const padRight = require('./utils/padRight.js');
 const servePackage = require('./serve-package.js');
 const logger = require('./logger.js');
@@ -90,7 +89,7 @@ if (debugEndpoints === true) {
 
 // log requests
 app.use((req, res, next) => {
-	const remoteAddr = (function() {
+	const remoteAddr = (function () {
 		if (req.ip) return req.ip;
 		const sock = req.socket;
 		if (sock.socket) return sock.socket.remoteAddress;

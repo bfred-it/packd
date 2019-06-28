@@ -1,6 +1,6 @@
 const semver = require('semver');
 
-module.exports = function findVersion(meta, tag) {
+module.exports = function findVersion (meta, tag) {
 	// already a valid version?
 	if (semver.valid(tag)) return meta.versions[tag] && tag;
 

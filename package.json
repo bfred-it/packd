@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server",
     "deploy": "now && now alias",
-    "test": "node test/test.js",
+    "test": "eslint",
     "postpublish": "npm run deploy"
   },
   "repository": {
@@ -45,7 +45,7 @@
     "tar": "^4.4.8",
   },
   "devDependencies": {
-    "eslint": "^5.12.0"
+    "eslint": "^6.0.1"
   },
   "now": {
     "version": 2,

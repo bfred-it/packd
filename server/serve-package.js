@@ -12,7 +12,7 @@ const sha1 = require('sha1');
 const { sendBadRequest, sendError } = require('./utils/responses.js');
 const { root, registry, additionalBundleResHeaders } = require('../config.js');
 
-function stringify(query) {
+function stringify (query) {
 	const str = Object.keys(query)
 		.sort()
 		.map(key => `${key}=${query[key]}`)
@@ -20,10 +20,10 @@ function stringify(query) {
 	return str ? `?${str}` : '';
 }
 
-module.exports = function servePackage(req, res, next) {
+module.exports = function servePackage (req, res, next) {
 	if (req.method !== 'GET') return next();
 
-	const match = /^\/(?:@([^\/]+)\/)?([^@\/]+)(?:@(.+?))?(?:\/(.+?))?(?:\?(.+))?$/.exec(
+	const match = /^\/(?:@([^/]+)\/)?([^@/]+)(?:@(.+?))?(?:\/(.+?))?(?:\?(.+))?$/.exec(
 		req.url
 	);
 
@@ -110,7 +110,7 @@ module.exports = function servePackage(req, res, next) {
 
 const inProgress = {};
 
-function fetchBundle(pkg, version, deep, query) {
+function fetchBundle (pkg, version, deep, query) {
 	let hash = `${pkg.name}@${version}`;
 	if (deep) hash += `_${deep.replace(/\//g, '_')}`;
 	hash += stringify(query);
@@ -150,7 +150,7 @@ function fetchBundle(pkg, version, deep, query) {
 	return inProgress[hash];
 }
 
-function createBundle(hash, pkg, version, deep, query) {
+function createBundle (hash, pkg, version, deep, query) {
 	return new Promise((fulfil, reject) => {
 		const child = fork('server/child-processes/create-bundle.js');
 

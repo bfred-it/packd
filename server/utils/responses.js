@@ -1,6 +1,6 @@
 const { onBadRequest, onError } = require('../../config.js');
 
-module.exports.sendBadRequest = function sendBadRequest(res, msg) {
+module.exports.sendBadRequest = function sendBadRequest (res, msg) {
 	res.status(400);
 
 	if (typeof onBadRequest === 'function') {
@@ -10,7 +10,7 @@ module.exports.sendBadRequest = function sendBadRequest(res, msg) {
 	res.end(msg);
 };
 
-module.exports.sendError = function sendError(res, msg) {
+module.exports.sendError = function sendError (res, msg) {
 	res.status(500);
 
 	if (typeof onError === 'function') {
