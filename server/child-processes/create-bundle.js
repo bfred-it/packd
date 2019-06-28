@@ -33,14 +33,6 @@ async function createBundle({ hash, pkg, version, deep, query }) {
 
 		const code = await bundle(cwd, deep, query);
 
-		info(`[${pkg.name}] minifying`);
-
-		const result = Terser.minify(code);
-
-		if (result.error) {
-			info(`[${pkg.name}] minification failed: ${result.error.message}`);
-		}
-
 		process.send({
 			type: 'result',
 			code: result.error ? code : result.code
