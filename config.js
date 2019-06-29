@@ -18,7 +18,7 @@ exports.npmInstallEnvVars = [];
 exports.debugEndpoints = true;
 
 exports.additionalBundleResHeaders = {
-	'Cache-Control': 'max-age=86400',
+	'Cache-Control': 'public,s-maxage=31536000,immutable'
 };
 
 if (process.env.AWS) {
