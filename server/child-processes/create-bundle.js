@@ -35,7 +35,7 @@ async function createBundle ({ hash, pkg, version, deep, query }) {
 
 		process.send({
 			type: 'result',
-			code: `/* https://github.com/bfred-it/${pkg.name} @ v${version} */\n\n` + code
+			code: `/* https://github.com/fregante/${pkg.name} @ v${version} */\n\n` + code
 		});
 	} catch (err) {
 		process.send({

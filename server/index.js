@@ -125,7 +125,7 @@ app.use(
 );
 
 app.get('/', (req, res) => {
-	res.status(301).redirect('https://github.com/bfred-it');
+	res.status(301).redirect('https://github.com/fregante');
 });
 
 app.use(servePackage);

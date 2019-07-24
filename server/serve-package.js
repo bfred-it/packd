@@ -50,9 +50,9 @@ module.exports = function servePackage (req, res, next) {
 	get(`${registry}/${encodeURIComponent(qualified).replace('%40', '@')}`)
 		.then(JSON.parse)
 		.then(meta => {
-			if (!meta.homepage.startsWith('https://github.com/bfred-it/')) {
+			if (!meta.homepage.startsWith('https://github.com/fregante/') && !meta.homepage.startsWith('https://github.com/bfred-it/')) {
 				console.log(meta.homepage);
-				return sendBadRequest(res, 'this is customized for <a href="https://github.com/bfred-it">@bfred-it</a>. Use <a href="https://packd.now.sh/">https://packd.now.sh/</a>');
+				return sendBadRequest(res, 'this is customized for <a href="https://github.com/fregante">@fregante</a>. Use <a href="https://packd.now.sh/">https://packd.now.sh/</a>');
 			}
 			if (!meta.versions) {
 				logger.error(`[${qualified}] invalid module`);

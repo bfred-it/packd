@@ -1,29 +1,22 @@
 {
-  "private": true,
   "name": "packd",
   "version": "2.7.1",
+  "private": true,
   "description": "Simple alternative to browserify-cdn",
-  "scripts": {
-    "start": "node server",
-    "deploy": "now --public && now alias",
-    "test": "eslint",
-    "postpublish": "npm run deploy"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Rich-Harris/packd.git"
-  },
   "keywords": [
     "browserify",
     "bundler",
     "npm"
   ],
-  "author": "Rich Harris",
+  "repository": "fregante/packd",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Rich-Harris/packd/issues"
+  "author": "Rich Harris",
+  "scripts": {
+    "deploy": "now --public && now alias",
+    "postpublish": "npm run deploy",
+    "start": "node server",
+    "test": "eslint"
   },
-  "homepage": "https://github.com/Rich-Harris/packd#readme",
   "dependencies": {
     "browserify": "^16.2.3",
     "compression": "^1.7.0",
@@ -50,7 +43,7 @@
   },
   "now": {
     "version": 2,
-    "alias": "packd.bfred-it.now.sh",
+    "alias": "packd.fregante.now.sh",
     "files": [
       "public",
       "server",
