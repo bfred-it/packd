@@ -24,6 +24,11 @@ function stringify (query) {
 module.exports = function servePackage (req, res, next) {
 	if (req.method !== 'GET') return next();
 
+	if (req.url.endsWith('favicon.ico')) {
+		res.end();
+		return
+	}
+
 	const match = /^\/(?:@([^/]+)\/)?([^@/]+)(?:@(.+?))?(?:\/(.+?))?(?:\?(.+))?$/.exec(
 		req.url
 	);
