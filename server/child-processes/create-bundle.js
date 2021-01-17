@@ -99,7 +99,7 @@ function installDependencies (cwd) {
 	const pkg = require(`${cwd}/package.json`);
 
 	const envVariables = npmInstallEnvVars.join(' ');
-	const installCommand = `${envVariables} HOME='/tmp' npm install --verbose --production --prefix /tmp`;
+	const installCommand = `${envVariables} HOME='/tmp' npm install --verbose --production`;
 
 	info(`[${pkg.name}] running ${installCommand}`);
 
